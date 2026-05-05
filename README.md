@@ -33,8 +33,8 @@ Só isso. Nada de Python, Node.js ou qualquer outra runtime local.
 ## Início rápido
 
 ```bash
-git clone https://github.com/feandres/repositorioadefinir
-cd repositorioadefinir
+git clone https://github.com/feandres/tcc
+cd tcc
 ./scripts/setup.sh
 make start
 ```

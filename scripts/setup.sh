@@ -76,8 +76,8 @@ step "3. Clonando laboratórios..."
 mkdir -p labs
 
 REPOS=(
-  "lab-01:https://github.com/feandres/microlab-lab-01"
-  "lab-02:https://github.com/feandres/microlab-lab-02"
+  "lab-01:https://github.com/feandres/tcc-lab-01"
+  "lab-02:https://github.com/feandres/tcc-lab-02"
 )
 
 for entry in "${REPOS[@]}"; do
