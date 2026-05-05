@@ -1,0 +1,173 @@
+name: microlab
+
+# ─── REDE INTERNA ──────────────────────────────────────────────────────────────
+networks:
+  microlab:
+    driver: bridge
+
+# ─── SERVIÇOS SEMPRE ATIVOS ────────────────────────────────────────────────────
+# Sobem com qualquer `make start` independente do lab ativo.
+
+services:
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "${PLATFORM_PORT:-80}:80"
+    volumes:
+      - ./platform/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - ui
+      - orchestrator
+    networks:
+      - microlab
+    restart: unless-stopped
+
+  ui:
+    build: ./platform/ui
+    networks:
+      - microlab
+    restart: unless-stopped
+
+  orchestrator:
+    build: ./platform/orchestrator
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./.env:/app/.env
+      - ./labs:/app/labs                    # acesso aos arquivos dos labs
+      - ./.lab-state.json:/app/.lab-state.json
+    environment:
+      - NODE_ENV=production
+      - LABS_PATH=/app/labs
+      - STATE_FILE=/app/.lab-state.json
+    networks:
+      - microlab
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./infra/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    networks:
+      - microlab
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:latest
+    volumes:
+      - ./infra/grafana/provisioning:/etc/grafana/provisioning:ro
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_SERVER_ROOT_URL=http://localhost/grafana
+      - GF_SERVER_SERVE_FROM_SUB_PATH=true
+      - GF_SECURITY_ALLOW_EMBEDDING=true
+    networks:
+      - microlab
+    restart: unless-stopped
+
+  toxiproxy:
+    image: shopify/toxiproxy:latest
+    volumes:
+      - ./infra/toxiproxy/config.json:/config/toxiproxy.json:ro
+    command: ["-config", "/config/toxiproxy.json", "-host", "0.0.0.0"]
+    networks:
+      - microlab
+    restart: unless-stopped
+
+  # ─── LAB 01 ────────────────────────────────────────────────────────────────
+  lab-01:
+    build: ./labs/lab-01
+    volumes:
+      - ./labs/lab-01/src:/app/src          # hot reload
+    environment:
+      - PAYMENT_FAILURE_RATE=0.0
+    networks:
+      - microlab
+    profiles: [lab-01]
+    restart: unless-stopped
+
+  # ─── LAB 02 ────────────────────────────────────────────────────────────────
+  lab-02:
+    build: ./labs/lab-02
+    volumes:
+      - ./labs/lab-02/src:/app/src
+    networks:
+      - microlab
+    profiles: [lab-02]
+    restart: unless-stopped
+
+  # ─── LAB 03 — dois serviços separados ──────────────────────────────────────
+  lab-03-orders:
+    build: ./labs/lab-03/order-service
+    volumes:
+      - ./labs/lab-03/order-service/src:/app/src
+    environment:
+      - PAYMENT_SERVICE_URL=http://toxiproxy:8001
+    networks:
+      - microlab
+    profiles: [lab-03]
+    restart: unless-stopped
+
+  lab-03-payments:
+    build: ./labs/lab-03/payment-service
+    volumes:
+      - ./labs/lab-03/payment-service/src:/app/src
+    networks:
+      - microlab
+    profiles: [lab-03]
+    restart: unless-stopped
+
+  # ─── LAB 04 — mensageria ───────────────────────────────────────────────────
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    ports:
+      - "15672:15672"
+    networks:
+      - microlab
+    profiles: [lab-04, lab-05]
+    restart: unless-stopped
+
+  lab-04-orders:
+    build: ./labs/lab-04/order-service
+    volumes:
+      - ./labs/lab-04/order-service/src:/app/src
+    environment:
+      - RABBITMQ_URL=amqp://guest:guest@rabbitmq:5672
+    depends_on: [rabbitmq]
+    networks:
+      - microlab
+    profiles: [lab-04]
+    restart: unless-stopped
+
+  lab-04-payments:
+    build: ./labs/lab-04/payment-service
+    volumes:
+      - ./labs/lab-04/payment-service/src:/app/src
+    environment:
+      - RABBITMQ_URL=amqp://guest:guest@rabbitmq:5672
+    depends_on: [rabbitmq]
+    networks:
+      - microlab
+    profiles: [lab-04]
+    restart: unless-stopped
+
+  # ─── LAB 05 — escalabilidade ───────────────────────────────────────────────
+  redis:
+    image: redis:7-alpine
+    networks:
+      - microlab
+    profiles: [lab-05]
+    restart: unless-stopped
+
+  lab-05:
+    build: ./labs/lab-05
+    volumes:
+      - ./labs/lab-05/src:/app/src
+    environment:
+      - REDIS_URL=redis://redis:6379
+    depends_on: [redis, rabbitmq]
+    networks:
+      - microlab
+    profiles: [lab-05]
+    restart: unless-stopped

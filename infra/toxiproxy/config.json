@@ -1,0 +1,8 @@
+[
+  {
+    "name": "payment-service",
+    "listen": "0.0.0.0:8001",
+    "upstream": "lab-03-payments:8000",
+    "enabled": true
+  }
+]
