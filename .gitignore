@@ -7,3 +7,6 @@ labs/
 
 # mac
 .DS_Store
+
+#node_modules
+platform/orchestrator/node_modules/

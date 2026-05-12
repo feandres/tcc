@@ -34,6 +34,4 @@ lab-01: ; @$(MAKE) _switch NOVO=01
 lab-02: ; @$(MAKE) _switch NOVO=02
 
 reset-lab:
-	@cd labs/lab-$(LAB_ATIVO) && git reset --hard origin/main && git clean -fd --quiet
-	@docker compose --profile lab-$(LAB_ATIVO) restart
-	@echo "lab-$(LAB_ATIVO) restaurado."
+	@./scripts/reset-lab.sh

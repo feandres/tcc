@@ -16,6 +16,16 @@ command -v docker &>/dev/null      || fail "Docker não encontrado."
 docker compose version &>/dev/null || fail "Docker Compose plugin não encontrado."
 ok "Docker $(docker version --format '{{.Server.Version}}' 2>/dev/null)"
 
+# ─── .env ─────────────────────────────────────────────────────────────────────
+ 
+if [ ! -f .env ]; then
+  cp .env.example .env
+  ok ".env criado a partir do .env.example"
+else
+  ok ".env já existe"
+fi
+ 
+
 # ─── clonar ou atualizar labs ─────────────────────────────────────────────────
 
 echo ""
@@ -43,14 +53,14 @@ clone_or_update "lab-02" "https://github.com/feandres/tcc-lab-02.git"
 
 echo ""
 echo -e "${B}verificando estrutura...${N}"
-
+ 
 for NAME in lab-01 lab-02; do
   DIR="labs/$NAME"
   MISSING=()
   [ -f "$DIR/Dockerfile" ]       || MISSING+=("Dockerfile")
   [ -f "$DIR/requirements.txt" ] || MISSING+=("requirements.txt")
   [ -d "$DIR/src" ]              || MISSING+=("src/")
-
+ 
   if [ ${#MISSING[@]} -eq 0 ]; then
     ok "$NAME"
   else
@@ -58,9 +68,12 @@ for NAME in lab-01 lab-02; do
   fi
 done
 
+chmod +x scripts/reset-lab.sh scripts/setup.sh
+ 
 echo ""
 echo -e "${B}pronto.${N}"
 echo ""
 echo "  Para iniciar:  make start"
 echo "  Para testar:   make test"
 echo ""
+ 
