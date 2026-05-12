@@ -70,9 +70,6 @@ make stop           # para tudo
 make reset          # volta o ambiente ao estado inicial
 make lab-01         # troca para o lab 01
 make lab-02         # troca para o lab 02
-make lab-03         # troca para o lab 03
-make lab-04         # troca para o lab 04
-make lab-05         # troca para o lab 05
 ```
 
 Para reiniciar um lab do zero (sem perder os outros):

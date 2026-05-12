@@ -1,0 +1,9 @@
+# ambiente local — não subir
+.env
+.lab-state.json
+
+# labs são clonados pelo setup.sh, não fazem parte do repo base
+labs/
+
+# mac
+.DS_Store
