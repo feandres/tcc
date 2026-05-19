@@ -8,7 +8,7 @@ UI="platform/ui/vendor"
 mkdir -p "$UI/monaco" "$UI/mermaid" "$UI/preact"
 
 # ─── Monaco ───────────────────────────────────────────────────────────────────
-if [ -d "$UI/monaco/vs" ]; then
+if [[ -d "$UI/monaco/vs" ]]; then
   ok "Monaco já existe — pulando"
 else
   echo -e "${B}baixando Monaco Editor...${N}"
@@ -20,7 +20,7 @@ else
 fi
 
 # ─── Mermaid ──────────────────────────────────────────────────────────────────
-if [ -f "$UI/mermaid/mermaid.esm.min.mjs" ]; then
+if [[ -f "$UI/mermaid/mermaid.esm.min.mjs" ]]; then
   ok "Mermaid já existe — pulando"
 else
   echo -e "${B}baixando Mermaid...${N}"
@@ -30,7 +30,7 @@ else
 fi
 
 # ─── Preact — versão standalone para browser (sem bundler) ───────────────────
-if [ -f "$UI/preact/preact.module.js" ]; then
+if [[ -f "$UI/preact/preact.module.js" ]]; then
   ok "Preact já existe — pulando"
 else
   echo -e "${B}baixando Preact...${N}"

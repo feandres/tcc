@@ -17,9 +17,9 @@ echo ""
 printf "  Confirmar? [s/N] "
 read -r ans
 
-[ "$ans" = "s" ] || [ "$ans" = "S" ] || { echo "  Cancelado."; exit 0; }
+[[ "$ans" = "s" ]] || [[ "$ans" = "S" ]] || { echo "  Cancelado."; exit 0; }
 
-[ -d "$DIR/.git" ] || fail "$DIR não é um repositório git. Execute ./scripts/setup.sh"
+[[ -d "$DIR/.git" ]] || fail "$DIR não é um repositório git. Execute ./scripts/setup.sh"
 
 cd "$DIR"
 git reset --hard origin/main

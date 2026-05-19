@@ -18,7 +18,7 @@ ok "Docker $(docker version --format '{{.Server.Version}}' 2>/dev/null)"
 
 # ─── .env ─────────────────────────────────────────────────────────────────────
  
-if [ ! -f .env ]; then
+if [[ ! -f .env ]]; then
   cp .env.example .env
   ok ".env criado a partir do .env.example"
 else
