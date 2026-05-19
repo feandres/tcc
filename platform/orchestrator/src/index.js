@@ -10,5 +10,7 @@ app.use(require('./routes/labs'))
 app.use(require('./routes/files'))
 app.use(require('./routes/tests'))
 app.use(require('./routes/logs'))
+app.use(require('./routes/tree'))
+
 
 app.listen(4000, () => console.log('[orchestrator] :4000'))

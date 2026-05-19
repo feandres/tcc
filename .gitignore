@@ -10,3 +10,6 @@ labs/
 
 #node_modules
 platform/orchestrator/node_modules/
+
+#vendor
+platform/ui/vendor/

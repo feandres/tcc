@@ -6,6 +6,41 @@ networks:
 
 services:
 
+  # ─── NGINX ─────────────────────────────────────────────────────────────────
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./platform/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - ui
+      - orchestrator
+    networks:
+      - microlab
+    restart: unless-stopped
+
+  # ─── UI ────────────────────────────────────────────────────────────────────
+  ui:
+    build: ./platform/ui
+    networks:
+      - microlab
+    restart: unless-stopped
+
+  # ─── ORQUESTRADOR ──────────────────────────────────────────────────────────
+  orchestrator:
+    build: ./platform/orchestrator
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./.env:/app/.env
+      - ./labs:/app/labs
+    environment:
+      - LABS_PATH=/app/labs
+    networks:
+      - microlab
+    restart: unless-stopped
+
+  # ─── LAB 01 ────────────────────────────────────────────────────────────────
   lab-01:
     build: ./labs/lab-01
     ports:
@@ -19,6 +54,7 @@ services:
     profiles: [lab-01]
     restart: unless-stopped
 
+  # ─── LAB 02 ────────────────────────────────────────────────────────────────
   lab-02:
     build: ./labs/lab-02
     ports:
