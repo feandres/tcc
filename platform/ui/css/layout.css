@@ -78,6 +78,10 @@ html, body {
   position: relative;
 }
 
+#editor .cm-editor {
+  height: 100%;
+}
+
 #challenges-panel {
   width: 360px;
   background: var(--bg-panel);

@@ -30,20 +30,16 @@ export function ChallengesPanel({ challenges, testResults, onVerify, loading }) 
                 const passed = result ? result.passed : null;
 
                 let cardClass = "challenge-card pending";
-                let icon = "⚪";
                 if (passed === true) {
                   cardClass = "challenge-card passed";
-                  icon = "✅";
                 } else if (passed === false) {
                   cardClass = "challenge-card failed";
-                  icon = "❌";
                 }
 
                 return html`
                   <div key=${ch.id} class=${cardClass}>
                     <div class="challenge-header">
                       <span class="challenge-status">
-                        <span>${icon}</span>
                         <strong>${ch.title}</strong>
                       </span>
                       <span class="challenge-badge ${ch.type}">${ch.type}</span>

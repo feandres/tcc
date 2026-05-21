@@ -16,7 +16,7 @@ export function FileExplorer({ tree, currentFile, editableFiles }) {
         return html`
           <div key=${node.name}>
             <div class="tree-item folder">
-              📁 ${node.name}
+               ${node.name}
             </div>
             <div class="children">
               ${renderNodes(node.children || [])}
@@ -34,7 +34,7 @@ export function FileExplorer({ tree, currentFile, editableFiles }) {
             class=${classes} 
             onClick=${() => onFileClick(node.path)}
           >
-            📄 ${node.name} ${!isEditable && html`<span style="font-size: 10px; color: var(--text-muted); opacity: 0.8;">(locked)</span>`}
+            ${node.name} ${!isEditable && html`<span style="font-size: 10px; color: var(--text-muted); opacity: 0.8;">(locked)</span>`}
           </div>
         `;
       }

@@ -227,7 +227,7 @@ select:focus {
   border-left: 4px solid var(--danger);
 }
 .challenge-card.pending {
-  border-left: 4px solid var(--text-muted);
+  border-left: 4px solid var(--warning);
 }
 
 .challenge-header {

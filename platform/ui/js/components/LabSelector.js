@@ -11,7 +11,7 @@ export function LabSelector({ activeLab }) {
 
   return html`
     <div class="topbar-left">
-      <span class="logo">⚡ microlab</span>
+      <span class="logo">TCC</span>
       <select value=${activeLab} onChange=${onChange}>
         <option value="01">Lab 01 — Monólito</option>
         <option value="02">Lab 02 — Monólito Modular</option>
