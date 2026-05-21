@@ -48,6 +48,7 @@ router.get('/api/status', (req, res) => {
   })
 
   proc.on('error', err => {
+    if (res.headersSent) return
     return res.status(500).json({
       ok: false,
       error: err.message
@@ -55,6 +56,7 @@ router.get('/api/status', (req, res) => {
   })
 
   proc.on('close', code => {
+    if (res.headersSent) return
     if (code !== 0) {
       return res.status(500).json({
         ok: false,

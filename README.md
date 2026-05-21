@@ -169,11 +169,11 @@ Depois `make start` novamente.
 Cada lab é um repositório público independente. Se quiser explorar
 o código antes de começar ou comparar com outra abordagem:
 
-- github.com/feandres/nomeadefinir-lab-01
-- github.com/feandres/nomeadefinir-lab-02
-- github.com/feandres/nomeadefinir-lab-03
-- github.com/feandres/nomeadefinir-lab-04
-- github.com/feandres/nomeadefinir-lab-05
+- github.com/feandres/tcc-lab-01
+- github.com/feandres/tcc-lab-02
+- github.com/feandres/tcc-lab-03
+- github.com/feandres/tcc-lab-04
+- github.com/feandres/tcc-lab-05
 
 A branch `main` de cada repositório contém o starter — o código que
 você recebe com os desafios em aberto. As solutions não são públicas.

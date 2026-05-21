@@ -1,0 +1,342 @@
+/* CSS Component Widgets & States */
+
+/* Typography */
+.logo {
+  font-weight: 800;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  color: var(--accent);
+  text-transform: lowercase;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Forms & Dropdowns */
+select {
+  background: var(--bg-main);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  padding: 6px 28px 6px 12px;
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  outline: none;
+  transition: border-color var(--transition-fast);
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238b949e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 14px;
+}
+select:hover {
+  border-color: var(--border-hover);
+}
+select:focus {
+  border-color: var(--accent);
+}
+
+/* Tab Headers (File Tabs) */
+#tabs {
+  display: flex;
+  gap: 2px;
+  overflow-x: auto;
+  flex: 1;
+  padding-left: 12px;
+  scrollbar-width: none;
+}
+#tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.file-tab {
+  background: transparent;
+  color: var(--text-muted);
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 14px 16px;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+.file-tab:hover {
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.02);
+}
+.file-tab.active {
+  color: var(--text-main);
+  border-bottom-color: var(--accent);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* Custom View Switcher (Editor vs Mermaid vs Tools) */
+.view-tabs {
+  display: flex;
+  background: var(--bg-main);
+  border-bottom: 1px solid var(--border-color);
+  padding: 0 8px;
+  gap: 4px;
+}
+.view-tab-btn {
+  background: transparent;
+  color: var(--text-muted);
+  border: none;
+  padding: 8px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  border-top: 2px solid transparent;
+  transition: all var(--transition-fast);
+}
+.view-tab-btn:hover {
+  color: var(--text-main);
+}
+.view-tab-btn.active {
+  color: var(--accent);
+  border-top-color: var(--accent);
+  background: var(--bg-panel);
+}
+
+/* File Tree Explorer (Sidebar) */
+.explorer-header {
+  padding: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--border-color);
+}
+.tree-container {
+  padding: 8px;
+  flex: 1;
+  overflow-y: auto;
+}
+.tree-item {
+  display: flex;
+  align-items: center;
+  padding: 6px 8px;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  user-select: none;
+  gap: 6px;
+  transition: background var(--transition-fast);
+}
+.tree-item:hover {
+  background: var(--bg-active);
+}
+.tree-item.folder {
+  color: var(--text-muted);
+  font-weight: 600;
+}
+.tree-item.file {
+  color: var(--text-main);
+}
+.tree-item.file.active {
+  color: var(--accent);
+  background: rgba(79, 142, 247, 0.08);
+}
+.tree-item.readonly {
+  opacity: 0.6;
+}
+.children {
+  padding-left: 12px;
+  border-left: 1px dotted rgba(255, 255, 255, 0.07);
+  margin-left: 14px;
+}
+
+/* Challenge Panel Layout & Cards */
+.panel-header {
+  padding: 16px;
+  border-bottom: 1px solid var(--border-color);
+}
+.panel-header h2 {
+  margin: 0 0 6px 0;
+  font-size: 16px;
+  font-weight: 700;
+}
+.panel-header p {
+  margin: 0 0 12px 0;
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+.stack-badge {
+  font-size: 10px;
+  background: var(--bg-main);
+  border: 1px solid var(--border-color);
+  color: var(--accent);
+  padding: 3px 6px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+}
+
+.action-area {
+  padding: 16px;
+  border-bottom: 1px solid var(--border-color);
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+  width: 100%;
+  background: var(--accent);
+  color: var(--text-main);
+  border: none;
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background var(--transition-fast), transform 0.1s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.btn-primary:hover {
+  background: var(--accent-hover);
+}
+.btn-primary:active {
+  transform: scale(0.98);
+}
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Challenge Cards */
+.challenge-card {
+  background: var(--bg-main);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+.challenge-card:hover {
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-sm);
+}
+.challenge-card.passed {
+  border-left: 4px solid var(--success);
+}
+.challenge-card.failed {
+  border-left: 4px solid var(--danger);
+}
+.challenge-card.pending {
+  border-left: 4px solid var(--text-muted);
+}
+
+.challenge-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.challenge-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.challenge-badge {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 2px 5px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+}
+.challenge-badge.obrigatorio {
+  background: rgba(79, 142, 247, 0.15);
+  color: var(--accent);
+}
+.challenge-badge.avancado {
+  background: rgba(251, 191, 36, 0.15);
+  color: var(--warning);
+}
+
+.challenge-objective {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.45;
+}
+
+.error-msg {
+  margin-top: 8px;
+  padding: 8px;
+  background: var(--danger-bg);
+  border: 1px solid var(--danger-border);
+  border-radius: var(--radius-sm);
+  color: var(--danger);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+/* Save Status text indicator */
+#save-status {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  transition: opacity var(--transition-fast);
+}
+
+/* Global Loading Spinner overlay */
+#loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(13, 15, 18, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  gap: 16px;
+  transition: opacity var(--transition-normal);
+}
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(255, 255, 255, 0.05);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+#loader-text {
+  font-size: 14px;
+  color: var(--text-main);
+  font-weight: 500;
+  max-width: 320px;
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* Mermaid Graph Container styling */
+.mermaid-container {
+  padding: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+}
+.mermaid-container svg {
+  max-width: 100%;
+  height: auto;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

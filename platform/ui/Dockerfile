@@ -3,6 +3,8 @@ FROM busybox:latest
 WORKDIR /www
 
 COPY index.html .
+COPY css/ ./css/
+COPY js/ ./js/
 COPY vendor/ ./vendor/
 
 RUN adduser -D appuser \
